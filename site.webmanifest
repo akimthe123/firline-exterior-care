@@ -1,0 +1,13 @@
+{
+  "name": "Fir Line Exterior Care",
+  "short_name": "Fir Line",
+  "description": "Affordable leaf cleanup, Christmas lights, siding and roof cleaning in Damascus, Happy Valley & Clackamas OR.",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#003F20",
+  "theme_color": "#003F20",
+  "icons": [
+    { "src": "images/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "images/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

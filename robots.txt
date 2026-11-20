@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akimthe123.github.io/firline-exterior-care/sitemap.xml
