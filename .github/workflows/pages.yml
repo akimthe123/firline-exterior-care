@@ -1,0 +1,54 @@
+name: Deploy site to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Prepare site files
+        run: |
+          mkdir -p _site/images
+          cp index.html styles.css robots.txt sitemap.xml site.webmanifest _site/
+          if [ -f favicon.ico.b64 ]; then
+            base64 -d favicon.ico.b64 > _site/favicon.ico
+          elif [ -f favicon.ico ]; then
+            cp favicon.ico _site/
+          fi
+          for f in images/*; do
+            [ -e "$f" ] || continue
+            name=$(basename "$f")
+            if [[ "$name" == *.b64 ]]; then
+              base64 -d "$f" > "_site/images/${name%.b64}"
+            else
+              cp "$f" "_site/images/$name"
+            fi
+          done
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
