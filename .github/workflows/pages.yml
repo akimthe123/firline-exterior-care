@@ -30,7 +30,7 @@ jobs:
       - name: Prepare site files
         run: |
           mkdir -p _site/images
-          cp index.html styles.css robots.txt sitemap.xml site.webmanifest _site/
+          cp index.html styles.css robots.txt sitemap.xml site.webmanifest CNAME _site/
           if [ -f favicon.ico.b64 ]; then
             base64 -d favicon.ico.b64 > _site/favicon.ico
           elif [ -f favicon.ico ]; then
